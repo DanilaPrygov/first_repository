@@ -1,0 +1,31 @@
+%Исходный сигнал
+EKG=load('R2_10.txt');
+EKGLen=length(EKG)
+figure(3)
+subplot(3,1,1)
+plot(EKG)
+
+%Филтр А
+Ca = [1/12 1/6 1/6 1/6 1/6 1/6 1/12]
+Ma = length(Ca)
+Y=zeros(1,EKGLen);
+for n=Ma:EKGLen
+    Y(n)=1/12*EKG(n)+1/6*EKG(n-1)+ 1/6*EKG(n-2)+1/6*EKG(n-3)+1/6*EKG(n-4)+1/6*EKG(n-5)+1/12*EKG(n-6);
+end
+subplot(3,1,2)
+plot(EKG)
+hold on
+plot(Y,'r')
+title('filter a')
+
+%Фильтр В
+CaB = [1/9 5/9 1/3 0 -1/3 -5/9 -1/9]
+MaB = length(CaB)
+for n=Ma:EKGLen
+    Y(n)=1/9*EKG(n)+5/9*EKG(n-1)+ 1/3*EKG(n-2)+0*EKG(n-3)+(-1/3)*EKG(n-4)+(-5/9)*EKG(n-5)+(-1/9)*EKG(n-6);
+end
+subplot(3,1,3)
+plot(EKG)
+hold on
+plot(Y,'r')
+title('filter b')
