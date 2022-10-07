@@ -29,3 +29,4 @@ plot(EKG)
 hold on
 plot(Y,'r')
 title('filter b')
+%Вношу изменения в изначальный файл 
